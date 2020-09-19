@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 
 import SwiperFlatList from 'react-native-swiper-flatlist';
 
@@ -10,6 +10,17 @@ import partyIcon from '../../../../assets/temp/party.jpg';
 const { height, width } = Dimensions.get('window');
 
 class Category extends Component {
+    constructor(props){
+        super(props);
+
+        this.goToListProduct.bind(this);
+    }
+
+    goToListProduct = () => {
+        const { navigation } = this.props;
+        navigation.push('ListProduct');
+    }
+
     render() {
         const { wrapper, textStyle, imageStyle, cateTitle } = styles;
         return (
@@ -29,15 +40,30 @@ class Category extends Component {
                         paginationStyle={{padding:0,justifyContent:'center'}}
                         paginationStyleItem={{width:11,height:11}}
                     >
-                        <ImageBackground source={littleIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={maxiIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={partyIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Maxi Dress</Text>
-                        </ImageBackground>
+                        <TouchableOpacity
+                            activeOpacity={0.2}
+                            onPress={this.goToListProduct}
+                        >
+                            <ImageBackground source={littleIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.2}
+                            onPress={this.goToListProduct}
+                        >
+                            <ImageBackground source={maxiIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.2}
+                            onPress={this.goToListProduct}
+                        >
+                            <ImageBackground source={partyIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
                     </SwiperFlatList>
                 </View>
             </View>

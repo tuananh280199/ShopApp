@@ -12,32 +12,12 @@ import HeaderDrawer from './HeaderDrawer';
 export default class Main extends Component{
     constructor(props){
         super(props);
-
-        this.goToAuthentication.bind(this);
-        this.goToChangeInfo.bind(this);
-        this.goToOrderHistory.bind(this);
     }
-    
-
-    goToAuthentication = () => {
-        const { navigation } = this.props;
-        navigation.push('Authentication')
-    }
-
-    goToChangeInfo = () => {
-        const { navigation } = this.props;
-        navigation.push('ChangeInfo')
-    }
-
-    goToOrderHistory = () => {
-        const { navigation } = this.props;
-        navigation.push('OrderHisory')
-    }
+  
 
     render(){
         const Drawer = createDrawerNavigator();
         return (
-          <NavigationContainer>
             <Drawer.Navigator
               initialRouteName="Shop"
               drawerContent={(props) => <HeaderDrawer {...props} />}
@@ -47,7 +27,6 @@ export default class Main extends Component{
               <Drawer.Screen name="ChangeInfo" component={ChangeInfo} />
               <Drawer.Screen name="OrderHisory" component={OrderHisory} />
             </Drawer.Navigator>
-          </NavigationContainer>
         );
     }
 };

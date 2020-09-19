@@ -20,6 +20,7 @@ export default class HeaderDrawer extends Component {
     }
     render(){
         const { props } = this;
+        const { navigation } = props;
         const { isLoggedIn } = this.state;
         const { header, imageProfile, textProfile, btnText, bkTextLogin } = styles;
         const logoutJSX = (
@@ -29,7 +30,7 @@ export default class HeaderDrawer extends Component {
                         <TouchableOpacity 
                             style={bkTextLogin}
                             onPress={() => {
-                                this.setState({isLoggedIn : true});
+                                navigation.navigate('Authentication')
                             }}>
                             <Text style={btnText}>Sign In</Text>
                         </TouchableOpacity>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         fontSize: 20,
-        color: '#ff4da6'
+        color: '#ff4da6',
+        fontFamily: 'Avenir'
     }
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
 import bannerImage from '../../../../assets/temp/banner.jpg';
 
@@ -13,9 +13,13 @@ class Collection extends Component {
                 <View style={{flex: 1}}>
                     <Text style={textStyle}>Spring Collection</Text>
                 </View>
-                <View style={{flex: 5}}>
+                <TouchableOpacity 
+                    style={{flex: 5}}
+                    activeOpacity={0.2}
+                    onPress={()=>{}}
+                >
                     <Image source={bannerImage} style={imageStyle}/>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }
