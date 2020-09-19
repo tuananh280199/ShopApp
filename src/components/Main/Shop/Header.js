@@ -29,7 +29,7 @@ class Header extends Component {
 const styles = StyleSheet.create({
     wrapper: {
         height: height / 8,
-        backgroundColor: '#ff99ff',
+        backgroundColor: '#ff4da6',
         padding: 9,
         justifyContent: 'space-around'
     },

@@ -26,12 +26,12 @@ const imageHeight = ( imageWidth / 933) * 465; //kích thước ảnh : 933x465
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: height * 0.35,
+        justifyContent:'space-between',
+        height: height * 0.36,
         padding : 12,
-        paddingTop: 7,
-        borderRadius: 4,
+        borderRadius: 8,
         backgroundColor : '#FFF',
-        shadowColor: '#2E2728',
+        shadowColor: '#2E272B',
         shadowOpacity : 0.3,
         shadowRadius : 15,
         shadowOffset : {width : 0, height : 3},
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         fontSize: 20,
-        color: 'gray',
+        color: '#ff66b3',
         textTransform: "uppercase"
     },
     imageStyle: {

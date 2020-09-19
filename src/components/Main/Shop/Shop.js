@@ -46,14 +46,14 @@ class Shop extends Component {
                 },
               })}
               tabBarOptions={{
-                activeTintColor: 'blue',
+                activeTintColor: '#ff3399',
                 inactiveTintColor: 'black',
                 labelStyle: {
-                  fontSize: 12,
-                }
+                  fontSize: 14,
+                },
               }}
             >
-              <Tab.Screen name="Home" component={Home} />
+              <Tab.Screen name="Home" component={Home}/>
               <Tab.Screen name="Cart" component={Cart} options={{ tabBarBadge: 3 }}/>
               <Tab.Screen name="Search" component={Search} />
               <Tab.Screen name="Contact" component={Contact} />
