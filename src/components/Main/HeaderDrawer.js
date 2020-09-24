@@ -15,7 +15,7 @@ export default class HeaderDrawer extends Component {
         super(props);
 
         this.state = ({
-            isLoggedIn : false
+            isLoggedIn : true
         })
     }
     render(){

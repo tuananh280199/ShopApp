@@ -10,13 +10,13 @@ class HomeView extends Component {
         super(props);
     }
     render() {
-        const { navigation } = this.props;
+        const { navigation, types, topProducts} = this.props;
         return (
           <ScrollView style={{flex: 1}}>
             <View>
               <Collecttion navigation={navigation}/>
-              <Category navigation={navigation}/>
-              <TopProduct navigation={navigation}/>
+              <Category navigation={navigation} types={types}/>
+              <TopProduct navigation={navigation} topProducts={topProducts}/>
             </View>
           </ScrollView>
         );

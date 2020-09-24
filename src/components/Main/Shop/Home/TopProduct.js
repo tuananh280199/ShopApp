@@ -1,77 +1,71 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 
-import sp1 from '../../../../assets/temp/sp1.jpeg';
-import sp2 from '../../../../assets/temp/sp2.jpeg';
-import sp3 from '../../../../assets/temp/sp3.jpeg';
-import sp4 from '../../../../assets/temp/sp4.jpeg';
+const url = 'http://192.168.1.240/apiMyShop/images/product/';
 
 const { height, width } = Dimensions.get('window');
 
 class TopProduct extends Component {
     constructor(props){
         super(props);
-
-        this.goToDetailProduct.bind(this);
     }
 
-    goToDetailProduct = () => {
+    goToDetailProduct = (detailProduct) => {
         const { navigation } = this.props;
-        navigation.push('DetailProduct');
+        navigation.navigate('Home', {
+            screen: 'DetailProduct',
+            params: {product : detailProduct}   
+        });
     }
     render() {
         const { container, titleContainer, body, title, productContainer, productImage, productName, productPrice } = styles;
+        const { topProducts } = this.props;
         return (
             <View style={container}>
                 <View style={titleContainer}>
                     <Text style={title}>List Category</Text>
                 </View>
-                <View style={body}>
-                    <TouchableOpacity
-                        style={productContainer}
-                        activeOpacity={0.2}
-                        onPress={this.goToDetailProduct}
-                    >
-                        <Image source={sp1} style={productImage}/>
-                        <Text style={productName}>Product Name</Text>
-                        <Text style={productPrice}>400$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={productContainer}
-                        activeOpacity={0.2}
-                        onPress={this.goToDetailProduct}
-                    >
-                        <Image source={sp2} style={productImage}/>
-                        <Text style={productName}>Product Name</Text>
-                        <Text style={productPrice}>400$</Text>
-                    </TouchableOpacity>
-                    <View style={{height:10, width}}></View>
-                    <TouchableOpacity
-                        style={productContainer}
-                        activeOpacity={0.2}
-                        onPress={this.goToDetailProduct}
-                    >
-                        <Image source={sp3} style={productImage}/>
-                        <Text style={productName}>Product Name</Text>
-                        <Text style={productPrice}>400$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={productContainer}
-                        activeOpacity={0.2}
-                        onPress={this.goToDetailProduct}
-                    >
-                        <Image source={sp4} style={productImage}/>
-                        <Text style={productName}>Product Name</Text>
-                        <Text style={productPrice}>400$</Text>
-                    </TouchableOpacity>
-                </View>
+                {/* <View style={body}>
+                    {
+                        topProducts.map((item, index) => (
+                            <TouchableOpacity
+                                style={productContainer}
+                                activeOpacity={0.2}
+                                onPress={() => this.goToDetailProduct(item)}
+                                key={item.id}
+                            >
+                                <Image source={{ uri : `${url}${item.images[0]}`}} style={productImage}/>
+                                <Text style={productName}>{item.name}</Text>
+                                <Text style={productPrice}>{item.price}$</Text>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </View> */}
+                <SafeAreaView style={body}>
+                    <FlatList
+                        data={topProducts}
+                        numColumns={2}
+                        renderItem={({item}) => (
+                            <TouchableOpacity
+                                style={productContainer}
+                                activeOpacity={0.2}
+                                onPress={() => this.goToDetailProduct(item)}
+                            >
+                                <Image source={{ uri : `${url}${item.images[0]}`}} style={productImage}/>
+                                <Text style={productName}>{item.name}</Text>
+                                <Text style={productPrice}>{item.price}$</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </SafeAreaView>
             </View>
         );
     }
 }
 
-const productWidth = (width - 50) / 2;
-const producImagetHeight = ( productWidth / 361) * 452; //kích thước ảnh : 933x465
+const productWidth = (width - 60) / 2;
+const producImagetHeight = ( productWidth / 361) * 450; //kích thước ảnh : 933x465
 
 const styles = StyleSheet.create({
     container: {
@@ -80,10 +74,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor : '#FFF',
         shadowColor: '#2E2728',
-        shadowOpacity : 0.3,
+        shadowOpacity : 0.2,
         shadowRadius : 15,
         shadowOffset : {width : 0, height : 3},
-        elevation: 8,
+        elevation: 4,
         margin: 8,
         fontFamily: 'Avenir'
     },
@@ -97,19 +91,22 @@ const styles = StyleSheet.create({
         textTransform: "uppercase"
     },
     body: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flexWrap: 'wrap',
+        alignItems: 'center',
     },
     productContainer: {
         width: productWidth,
         backgroundColor : '#FFF',
         shadowColor: '#2E272B',
-        shadowOpacity : 0.3,
+        shadowOpacity : 0.2,
         shadowRadius : 15,
         shadowOffset : {width : 0, height : 3},
-        elevation: 8,
-        paddingBottom: 5
+        elevation: 4,
+        paddingBottom: 5,
+        marginVertical: 5,
+        marginHorizontal: 5
     },
     productImage: {
         width: productWidth,
@@ -120,12 +117,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         color: '#662F90',
         textTransform: 'uppercase',
-        fontWeight: '500',
+        fontWeight: '300',
+        fontSize: 17
     },
     productPrice: {
         paddingLeft: 10,
         color: '#ff6666',
-        fontFamily: 'Avenir'
+        fontFamily: 'Avenir',
+        fontSize: 14
     },
 });
 

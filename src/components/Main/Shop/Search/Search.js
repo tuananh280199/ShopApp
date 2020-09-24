@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import SearchView from './SearchView';
+import DetailProduct from '../../Shop/DetailProduct/DetailProduct';
+
+const Stack = createStackNavigator();
 
 class Search extends Component {
     render() {
         return (
-            <View style={{flex: 1,backgroundColor: 'orange'}}>
-                <Text>Search</Text>
-            </View>
+          <Stack.Navigator
+            initialRouteName="SearchView"
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="SearchView" component={SearchView} />
+            <Stack.Screen name="DetailProduct" component={DetailProduct} />
+          </Stack.Navigator>
         );
     }
 }

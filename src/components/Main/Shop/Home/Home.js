@@ -5,19 +5,24 @@ import HomeView from './HomeView';
 import DetailProduct from '../DetailProduct/DetailProduct';
 import ListProduct from '../ListProduct/ListProduct';
 
-const Stack = createStackNavigator();
-
 class Home extends Component {
-    render() {
+    render() {   
+        const Stack = createStackNavigator();
+        const { types, topProducts, navigation, route } = this.props;
         return (
           <Stack.Navigator
             initialRouteName="HomeView"
             screenOptions={{
               headerShown: false,
-            }}>
-            <Stack.Screen name="HomeView" component={HomeView} />
-            <Stack.Screen name="DetailProduct" component={DetailProduct} />
-            <Stack.Screen name="ListProduct" component={ListProduct} />
+            }}
+          >
+            <Stack.Screen name="HomeView">
+              {() => <HomeView navigation={navigation} types={types} topProducts={topProducts}/>}
+            </Stack.Screen>
+            <Stack.Screen name="DetailProduct">
+              {() => <DetailProduct navigation={navigation} route={route}/>}
+            </Stack.Screen>
+            <Stack.Screen name="ListProduct" component={ListProduct}/>
           </Stack.Navigator>
         );
     }

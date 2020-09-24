@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 
-import SwiperFlatList from 'react-native-swiper-flatlist';
-
-import maxiIcon from '../../../../assets/temp/maxi.jpg';
-import littleIcon from '../../../../assets/temp/little.jpg';
-import partyIcon from '../../../../assets/temp/party.jpg';
+import Swiper from 'react-native-swiper';
 
 const { height, width } = Dimensions.get('window');
+const url = 'http://192.168.1.240/apiMyShop/images/type/';
 
 class Category extends Component {
     constructor(props){
@@ -18,53 +15,42 @@ class Category extends Component {
 
     goToListProduct = () => {
         const { navigation } = this.props;
+        // console.log(navigation);
         navigation.push('ListProduct');
     }
 
     render() {
         const { wrapper, textStyle, imageStyle, cateTitle } = styles;
+        const { types } = this.props;
+        // console.log(types);
         return (
             <View style={wrapper}>
                 <View style={{flex: 1}}>
                     <Text style={textStyle}>List Category</Text>
                 </View>
                 <View style={{flex: 5}}>
-                    <SwiperFlatList
+                    <Swiper
                         autoplay
-                        autoplayDelay={2}
-                        autoplayLoop
-                        index={2}
+                        loop	
+                        autoplayTimeout={2.5}
+                        autoplayDirection
+                        index={0}
                         showPagination
-                        paginationDefaultColor='#cccccc'
-                        paginationActiveColor='#ff3399'
-                        paginationStyle={{padding:0,justifyContent:'center'}}
-                        paginationStyleItem={{width:11,height:11}}
                     >
-                        <TouchableOpacity
-                            activeOpacity={0.2}
-                            onPress={this.goToListProduct}
-                        >
-                            <ImageBackground source={littleIcon} style={imageStyle}>
-                                <Text style={cateTitle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            activeOpacity={0.2}
-                            onPress={this.goToListProduct}
-                        >
-                            <ImageBackground source={maxiIcon} style={imageStyle}>
-                                <Text style={cateTitle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            activeOpacity={0.2}
-                            onPress={this.goToListProduct}
-                        >
-                            <ImageBackground source={partyIcon} style={imageStyle}>
-                                <Text style={cateTitle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                    </SwiperFlatList>
+                        {
+                            types.map(e => (
+                                <TouchableOpacity
+                                    activeOpacity={0.2}
+                                    onPress={this.goToListProduct}
+                                    key={e.id}
+                                >
+                                    <ImageBackground source={{ uri : `${url}${e.image}`}} style={imageStyle}>
+                                        <Text style={cateTitle}>{e.name}</Text>
+                                    </ImageBackground>
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </Swiper>
                 </View>
             </View>
         );
