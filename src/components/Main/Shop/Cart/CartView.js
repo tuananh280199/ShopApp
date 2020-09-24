@@ -5,6 +5,8 @@ import {
     SafeAreaView, FlatList
 } from 'react-native';
 
+import global from '../../../../global/global';
+
 const url = 'http://192.168.1.240/apiMyShop/images/product/';
 
 function toTitleCase(str) {
@@ -17,10 +19,24 @@ class CartView extends Component {
 
         this.goToDetailProduct.bind(this);
     }
+
     goToDetailProduct = () => {
         const { navigation } = this.props;
         navigation.push('DetailProduct');
     }
+
+    increaseQuantityOfThis = (productId) => {
+        global.increaseQuantity(productId);
+    }
+
+    decreaseQuantityOfThis = (productId) => {
+        global.decreaseQuantity(productId);
+    }
+
+    removeProductOfThis = (productId) => {
+        global.removeProduct(productId);
+    }
+
     render() {
         const { main, checkoutButton, checkoutTitle, wrapper,
         product, mainRight, productController,
@@ -42,7 +58,9 @@ class CartView extends Component {
                                     flexDirection: 'row',
                                 }}>
                                 <Text style={txtName}>{toTitleCase(item.product.name)}</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => this.removeProductOfThis(item.product.id)}
+                                >
                                     <Text style={{fontFamily: 'Avenir', color: '#969696'}}>
                                     X
                                     </Text>
@@ -53,12 +71,16 @@ class CartView extends Component {
                                 </View>
                                 <View style={productController}>
                                 <View style={numberOfProduct}>
-                                    <TouchableOpacity>
-                                    <Text style={{fontSize: 17}}>+</Text>
+                                    <TouchableOpacity
+                                        onPress={() => this.increaseQuantityOfThis(item.product.id)}
+                                    >
+                                        <Text style={{fontSize: 19}}>+</Text>
                                     </TouchableOpacity>
-                                    <Text style={{fontSize: 19}}>{item.quantity}</Text>
-                                    <TouchableOpacity>
-                                    <Text style={{fontSize: 17}}>-</Text>
+                                        <Text style={{fontSize: 19}}>{item.quantity}</Text>
+                                    <TouchableOpacity
+                                        onPress={() => this.decreaseQuantityOfThis(item.product.id)}
+                                    >
+                                        <Text style={{fontSize: 19}}>-</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <TouchableOpacity

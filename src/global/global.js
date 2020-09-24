@@ -1,5 +1,8 @@
 const { modulo } = require("react-native-reanimated");
 
 module.exports = {
-    addProductToCart: null
+    addProductToCart: null,
+    increaseQuantity: null,
+    decreaseQuantity: null,
+    removeProduct: null
 };

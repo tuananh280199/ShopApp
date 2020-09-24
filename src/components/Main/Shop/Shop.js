@@ -27,6 +27,9 @@ class Shop extends Component {
 
         this.toggleMenu.bind(this);
         global.addProductToCart = this.addProductToCart.bind(this);
+        global.increaseQuantity = this.increaseQuantity.bind(this);
+        global.decreaseQuantity = this.decreaseQuantity.bind(this);
+        global.removeProduct = this.removeProduct.bind(this);
     }
 
     componentDidMount(){
@@ -52,6 +55,36 @@ class Shop extends Component {
         {cardArray: this.state.cardArray.concat({product, quantity: 1})},
         () => saveCart(this.state.cardArray)
       ) //(product: product) === product
+    }
+
+    increaseQuantity = (productId) => {
+      const newCart = this.state.cardArray.map(item => {
+        if(item.product.id !== productId) return item;
+        return { product: item.product, quantity: item.quantity + 1 }
+      })
+      this.setState(
+        { cardArray: newCart},
+        () => saveCart(this.state.cardArray)
+      );
+    }
+
+    decreaseQuantity = (productId) => {
+      const newCart = this.state.cardArray.map(item => {
+        if(item.product.id !== productId) return item;
+        return { product: item.product, quantity: item.quantity - 1 }
+      })
+      this.setState(
+        { cardArray: newCart},
+        () => saveCart(this.state.cardArray)
+      );
+    }
+
+    removeProduct = (productId) => {
+      const newCart = this.state.cardArray.filter(item => item.product.id !== productId); //filter trả về các phần tử thỏa mãn điều kiện
+      this.setState(
+        { cardArray: newCart},
+        () => saveCart(this.state.cardArray)
+      );
     }
 
     render() {
