@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
-import initData from '../../../networking/Api';
+import initData from '../../../networking/initData';
 import saveCart from '../../../AsyncStorage/saveCart';
 import getCart from '../../../AsyncStorage/getCart';
 
@@ -97,7 +97,7 @@ class Shop extends Component {
             <Tab.Navigator 
               initialRouteName="Home"
               screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size }) => {
+                tabBarIcon: ({ color }) => {
                   let iconName;
       
                   if (route.name === "Home") {

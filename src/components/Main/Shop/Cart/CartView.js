@@ -43,6 +43,8 @@ class CartView extends Component {
             txtName, txtPrice, productImage, numberOfProduct, 
             txtShowDetail, showDetailContainer } = styles;
         const { cardArray } = this.props;
+        const arrayTotalPriceItem = cardArray.map(item => item.product.price * item.quantity);
+        const totalPrice = arrayTotalPriceItem.reduce( (a,b) => a + b, 0);
         return (
           <View style={wrapper}>
             <SafeAreaView style={main}>
@@ -97,7 +99,7 @@ class CartView extends Component {
                     />
                 </SafeAreaView>
             <TouchableOpacity style={checkoutButton}>
-              <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
+              <Text style={checkoutTitle}>TOTAL {totalPrice}$ CHECKOUT NOW</Text>
             </TouchableOpacity>
           </View>
         );

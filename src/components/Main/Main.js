@@ -7,7 +7,7 @@ import Shop from './Shop/Shop';
 import Authentication from '../Authentication/Authentication';
 import ChangeInfo from '../ChangeInfo/ChangeInfo';
 import OrderHisory from '../OrderHistory/OrderHistory';
-import HeaderDrawer from './HeaderDrawer';
+import DrawerCustom from './DrawerCustom';
 
 export default class Main extends Component{
     constructor(props){
@@ -19,7 +19,7 @@ export default class Main extends Component{
         return (
             <Drawer.Navigator
               initialRouteName="Shop"
-              drawerContent={(props) => <HeaderDrawer {...props} />}
+              drawerContent={(props) => <DrawerCustom {...props} />}
             >
               <Drawer.Screen name="Shop" component={Shop} />
               <Drawer.Screen name="Authentication" component={Authentication} />

@@ -10,12 +10,12 @@ import profileIcon from '../../assets/temp/profile.png';
 
 const { height, width } = Dimensions.get('window');
 
-export default class HeaderDrawer extends Component {
+export default class DrawerCustom extends Component {
     constructor(props){
         super(props);
 
         this.state = ({
-            isLoggedIn : true
+            isLoggedIn : false
         })
     }
     render(){
