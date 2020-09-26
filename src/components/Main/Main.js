@@ -10,7 +10,9 @@ import OrderHisory from '../OrderHistory/OrderHistory';
 import DrawerCustom from './DrawerCustom';
 
 import getToken from '../../AsyncStorage/getToken';
+import saveToken from '../../AsyncStorage/saveToken';
 import checkLogin from '../../networking/checkLogin';
+import refreshToken from '../../networking/refreshToken';
 import global from '../../global/global';
 
 export default class Main extends Component{
@@ -25,6 +27,14 @@ export default class Main extends Component{
         .then(res => res.json())
         .then(res => global.onSignIn(res.user))
         .catch(error => console.log(error));
+
+      setInterval(() => {
+        getToken()
+          .then(token => refreshToken(token))
+          .then(res => res.text())
+          .then(newToken => saveToken(newToken));
+      }, 60 * 60 * 1000); //1 giờ refresh lại token để gia hạn thời gian tồn tại của token
+
     }
 
     render(){
