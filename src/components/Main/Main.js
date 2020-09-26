@@ -18,6 +18,7 @@ export default class Main extends Component{
         super(props);
     }
 
+    //get token and check token
     componentDidMount(){
       getToken()
         .then(token => checkLogin(token))

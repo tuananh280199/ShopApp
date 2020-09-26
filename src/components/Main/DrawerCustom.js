@@ -7,6 +7,7 @@ import {
   } from '@react-navigation/drawer';
 
 import global from '../../global/global';
+import saveToken from '../../AsyncStorage/saveToken';
 
 import profileIcon from '../../assets/temp/profile.png';
 
@@ -21,10 +22,16 @@ export default class DrawerCustom extends Component {
         })
 
         global.onSignIn = this.onSignIn.bind(this);
+        this.onSignOut.bind(this);
     }
 
     onSignIn = (user) => {
         this.setState({ user })
+    }
+
+    onSignOut = () => {
+        this.setState({user : null});
+        saveToken(''); //gán lại token = '' khi sign out
     }
 
     render(){
@@ -55,9 +62,7 @@ export default class DrawerCustom extends Component {
                 <DrawerItemList {...props}/>
                 <DrawerItem
                     label="Sign Out"
-                    onPress={() => {
-                        this.setState({user : null});
-                    }}
+                    onPress={this.onSignOut}
                 />
             </View>
         );
