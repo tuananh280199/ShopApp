@@ -18,6 +18,7 @@ export default class Authentication extends Component{
         this.goBackToMain.bind(this);
         this.signIn.bind(this);
         this.signUp.bind(this);
+        this.gotoSignIn.bind(this);
     }
     
     goBackToMain = () => {
@@ -33,10 +34,14 @@ export default class Authentication extends Component{
         this.setState({ isSignIn : false })
     }
 
+    gotoSignIn = () => {
+        this.setState({ isSignIn: true })
+    }
+
     render(){
 
         const { isSignIn } = this.state;
-        const mainJSX = isSignIn ? <SignIn /> : <SignUp />;
+        const mainJSX = isSignIn ? <SignIn goBackToMain={this.goBackToMain}/> : <SignUp gotoSignIn={this.gotoSignIn}/>;
 
         return (
             <View style={styles.container}>

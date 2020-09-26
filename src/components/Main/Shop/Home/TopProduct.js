@@ -23,24 +23,8 @@ class TopProduct extends Component {
         return (
             <View style={container}>
                 <View style={titleContainer}>
-                    <Text style={title}>List Category</Text>
+                    <Text style={title}>Top Product</Text>
                 </View>
-                {/* <View style={body}>
-                    {
-                        topProducts.map((item, index) => (
-                            <TouchableOpacity
-                                style={productContainer}
-                                activeOpacity={0.2}
-                                onPress={() => this.goToDetailProduct(item)}
-                                key={item.id}
-                            >
-                                <Image source={{ uri : `${url}${item.images[0]}`}} style={productImage}/>
-                                <Text style={productName}>{item.name}</Text>
-                                <Text style={productPrice}>{item.price}$</Text>
-                            </TouchableOpacity>
-                        ))
-                    }
-                </View> */}
                 <SafeAreaView style={body}>
                     <FlatList
                         data={topProducts}
@@ -70,7 +54,7 @@ const producImagetHeight = ( productWidth / 361) * 450; //kích thước ảnh :
 const styles = StyleSheet.create({
     container: {
         justifyContent:'space-between',
-        padding : 12,
+        padding : 8,
         borderRadius: 8,
         backgroundColor : '#FFF',
         shadowColor: '#2E2728',
@@ -83,7 +67,9 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         height : 40,
-        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 3
     },
     title: {
         fontSize: 20,
@@ -105,8 +91,7 @@ const styles = StyleSheet.create({
         shadowOffset : {width : 0, height : 3},
         elevation: 4,
         paddingBottom: 5,
-        marginVertical: 5,
-        marginHorizontal: 5
+        margin: 7,
     },
     productImage: {
         width: productWidth,

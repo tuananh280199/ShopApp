@@ -34,12 +34,15 @@ class SignUp extends Component {
             [
                 { 
                     text: "OK", 
-                    onPress: () => this.setState({
-                        name: '',
-                        email: '',
-                        password: '',
-                        rePassword: ''
-                    }) 
+                    onPress: () => {
+                        this.setState({
+                            name: '',
+                            email: '',
+                            password: '',
+                            rePassword: ''
+                        });
+                        this.props.gotoSignIn();
+                    }
                 }
             ],
             { cancelable: false }
@@ -55,8 +58,6 @@ class SignUp extends Component {
                     text: "OK", 
                     onPress: () => this.setState({
                         email: '',
-                        password: '',
-                        rePassword: ''
                     }) 
                 }
             ],

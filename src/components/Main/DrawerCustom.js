@@ -6,6 +6,8 @@ import {
     DrawerItem,
   } from '@react-navigation/drawer';
 
+import global from '../../global/global';
+
 import profileIcon from '../../assets/temp/profile.png';
 
 const { height, width } = Dimensions.get('window');
@@ -15,13 +17,20 @@ export default class DrawerCustom extends Component {
         super(props);
 
         this.state = ({
-            isLoggedIn : false
+            user : null
         })
+
+        global.onSignIn = this.onSignIn.bind(this);
     }
+
+    onSignIn = (user) => {
+        this.setState({ user })
+    }
+
     render(){
         const { props } = this;
         const { navigation } = props;
-        const { isLoggedIn } = this.state;
+        const { user } = this.state;
         const { header, imageProfile, textProfile, btnText, bkTextLogin } = styles;
         const logoutJSX = (
                 <View>
@@ -41,18 +50,18 @@ export default class DrawerCustom extends Component {
             <View>
                 <View style={header}>
                     <Image source={profileIcon} style={imageProfile}/>
-                    <Text style={textProfile}>Nguyen Duc Tuan Anh</Text>
+                    <Text style={textProfile}>{user ? user.name : ''}</Text>
                 </View>
                 <DrawerItemList {...props}/>
                 <DrawerItem
                     label="Sign Out"
                     onPress={() => {
-                        this.setState({isLoggedIn : false});
+                        this.setState({user : null});
                     }}
                 />
             </View>
         );
-        const MainJSX = isLoggedIn ? loginJSX : logoutJSX;
+        const MainJSX = user ? loginJSX : logoutJSX;
         return (
             <DrawerContentScrollView {...props}>
                 {MainJSX}

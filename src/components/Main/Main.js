@@ -9,9 +9,21 @@ import ChangeInfo from '../ChangeInfo/ChangeInfo';
 import OrderHisory from '../OrderHistory/OrderHistory';
 import DrawerCustom from './DrawerCustom';
 
+import getToken from '../../AsyncStorage/getToken';
+import checkLogin from '../../networking/checkLogin';
+import global from '../../global/global';
+
 export default class Main extends Component{
     constructor(props){
         super(props);
+    }
+
+    componentDidMount(){
+      getToken()
+        .then(token => checkLogin(token))
+        .then(res => res.json())
+        .then(res => global.onSignIn(res.user))
+        .catch(error => console.log(error));
     }
 
     render(){
