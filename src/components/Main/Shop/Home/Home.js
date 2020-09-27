@@ -22,7 +22,9 @@ class Home extends Component {
             <Stack.Screen name="DetailProduct">
               {() => <DetailProduct navigation={navigation} route={route}/>}
             </Stack.Screen>
-            <Stack.Screen name="ListProduct" component={ListProduct}/>
+            <Stack.Screen name="ListProduct">
+              {() => <ListProduct navigation={navigation} route={route}/>}
+            </Stack.Screen>
           </Stack.Navigator>
         );
     }

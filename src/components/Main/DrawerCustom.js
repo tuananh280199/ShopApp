@@ -59,7 +59,7 @@ export default class DrawerCustom extends Component {
                     <Image source={profileIcon} style={imageProfile}/>
                     <Text style={textProfile}>{user ? user.name : ''}</Text>
                 </View>
-                <DrawerItemList {...props}/>
+                <DrawerItemList {...props} />
                 <DrawerItem
                     label="Sign Out"
                     onPress={this.onSignOut}

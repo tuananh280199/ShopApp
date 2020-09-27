@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import {
-    View, TouchableOpacity, Text, Image, StyleSheet, TextInput
+    View, TouchableOpacity, Text, Image, StyleSheet, TextInput, Alert
 } from 'react-native';
 
 import icBack from '../../assets/appIcon/back_white.png';
+
+import getToken from '../../AsyncStorage/getToken';
+import global from '../../global/global';
+import changeInfo from '../../networking/changeInfo';
 
 export default class ChangeInfo extends Component{
     constructor(props){
         super(props);
 
+        const { name, address, phone } = props.user;
+
         this.state = { 
-            txtName: 'Nguyen Duc Tuan Anh', 
-            txtAddress: 'Ha Noi', 
-            txtPhone: '123456789' 
+            txtName: name, 
+            txtAddress: address, 
+            txtPhone: phone
         };
 
         this.goBackToMain.bind(this);
+        this.changeInfomation.bind(this);
     }
     
 
@@ -24,12 +31,38 @@ export default class ChangeInfo extends Component{
         navigation.goBack()
     }
 
+    changeInfomation = () => {
+        const { txtName, txtAddress, txtPhone } = this.state;
+        getToken()
+            .then(token => changeInfo(token, txtName, txtPhone, txtAddress))
+            .then(res => res.json())
+            .then((user) => {
+                this.onSuccessed();
+                global.onSignIn(user);
+            })
+            .catch(error => console.log(error));
+    }
+
+    onSuccessed = () => {
+        Alert.alert(
+            "Notice",
+            "Update infomation Successfully",
+            [
+                { 
+                    text: "OK", 
+                    onPress: this.goBackToMain
+                }
+            ],
+            { cancelable: false }
+        );
+    }
+
     render() {
         const {
             wrapper, header, headerTitle, backIconStyle, body,
             signInContainer, signInTextStyle, textInput
         } = styles;
-        const { name, address, phone } = this.state;
+        const { txtName, txtAddress, txtPhone } = this.state;
         return (
             <View style={wrapper}>
                 <View style={header}>
@@ -44,24 +77,27 @@ export default class ChangeInfo extends Component{
                         style={textInput}
                         placeholder="Enter your name"
                         autoCapitalize="none"
-                        value={name}
+                        value={txtName}
                         onChangeText={txtName => this.setState({ ...this.state, txtName })}
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your address"
                         autoCapitalize="none"
-                        value={address}
+                        value={txtAddress}
                         onChangeText={txtAddress => this.setState({ ...this.state, txtAddress })}
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your phone number"
                         autoCapitalize="none"
-                        value={phone}
+                        value={txtPhone}
                         onChangeText={txtPhone => this.setState({ ...this.state, txtPhone })}
                     />
-                    <TouchableOpacity style={signInContainer}>
+                    <TouchableOpacity 
+                        style={signInContainer}
+                        onPress={this.changeInfomation}
+                    >
                         <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
                     </TouchableOpacity>
                 </View>

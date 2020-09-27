@@ -16,13 +16,6 @@ function toTitleCase(str) {
 class CartView extends Component {
     constructor(props){
         super(props);
-
-        this.goToDetailProduct.bind(this);
-    }
-
-    goToDetailProduct = () => {
-        const { navigation } = this.props;
-        navigation.push('DetailProduct');
     }
 
     increaseQuantityOfThis = (productId) => {
@@ -40,8 +33,7 @@ class CartView extends Component {
     render() {
         const { main, checkoutButton, checkoutTitle, wrapper,
         product, mainRight, productController,
-            txtName, txtPrice, productImage, numberOfProduct, 
-            txtShowDetail, showDetailContainer } = styles;
+            txtName, txtPrice, productImage, numberOfProduct, showDetailContainer } = styles;
         const { cardArray } = this.props;
         const arrayTotalPriceItem = cardArray.map(item => item.product.price * item.quantity);
         const totalPrice = arrayTotalPriceItem.reduce( (a,b) => a + b, 0);
@@ -85,12 +77,7 @@ class CartView extends Component {
                                         <Text style={{fontSize: 19}}>-</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity
-                                    activeOpacity={0.2}
-                                    style={showDetailContainer}
-                                    onPress={this.goToDetailProduct}>
-                                    <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                                </TouchableOpacity>
+                                <View style={showDetailContainer}/>
                                 </View>
                             </View>
                             </View>

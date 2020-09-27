@@ -19,7 +19,7 @@ class DetailProduct extends Component {
     }
 
     goBack = () => {
-        const { navigation, route } = this.props;
+        const { navigation } = this.props;
         navigation.popToTop();
     }
 

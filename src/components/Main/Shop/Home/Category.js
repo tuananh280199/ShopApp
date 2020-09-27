@@ -18,30 +18,32 @@ class Category extends Component {
   constructor(props) {
     super(props);
 
-    this.goToListProduct.bind(this);
   }
 
-  goToListProduct = () => {
+  goToListProduct = (type) => {
     const {navigation} = this.props;
-    // console.log(navigation);
-    navigation.push('ListProduct');
+    navigation.navigate('Home', {
+      screen: 'ListProduct',
+      params: {category: type}   
+    });
   };
 
   render() {
     const {wrapper, textStyle, imageStyle, cateTitle} = styles;
     const {types} = this.props;
+    // console.log(types);
     const swiper = (
       <Swiper
         autoplay
         loop
-        autoplayTimeout={2.5}
+        autoplayTimeout={3}
         autoplayDirection
         index={0}
         showPagination>
         {types.map((e) => (
           <TouchableOpacity
             activeOpacity={0.2}
-            onPress={this.goToListProduct}
+            onPress={() => this.goToListProduct(e)}
             key={e.id}>
             <ImageBackground
               source={{uri: `${url}${e.image}`}}
