@@ -17,6 +17,7 @@ class TopProduct extends Component {
             params: {product : detailProduct}   
         });
     }
+    
     render() {
         const { container, titleContainer, body, title, productContainer, productImage, productName, productPrice } = styles;
         const { topProducts } = this.props;

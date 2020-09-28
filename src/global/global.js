@@ -6,4 +6,6 @@ module.exports = {
     decreaseQuantity: null,
     removeProduct: null,
     onSignIn: null,
+    goToSearch: null,
+    setSearchListProduct: null
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
@@ -30,6 +30,7 @@ class Shop extends Component {
         global.increaseQuantity = this.increaseQuantity.bind(this);
         global.decreaseQuantity = this.decreaseQuantity.bind(this);
         global.removeProduct = this.removeProduct.bind(this);
+        global.goToSearch = this.goToSearch.bind(this);
     }
 
     componentDidMount(){
@@ -50,11 +51,32 @@ class Shop extends Component {
         navigation.toggleDrawer();
     }
 
+    goToSearch = () => {
+      const { navigation } = this.props;
+      navigation.jumpTo('Search'); //jumpTo là event của TabBottomNavigation
+    }
+
     addProductToCart = (product) => { //setState là phương thức bất đồng bộ => có callback function
-      this.setState(
-        {cardArray: this.state.cardArray.concat({product, quantity: 1})},
-        () => saveCart(this.state.cardArray)
-      ) //(product: product) === product
+      const checkProductInCard = this.state.cardArray.find(item => item.product.id === product.id);
+      if(checkProductInCard === undefined){
+        this.setState(
+          {cardArray: this.state.cardArray.concat({product, quantity: 1})},
+          () => saveCart(this.state.cardArray)
+        ) //(product: product) === product
+      }
+      else{
+        Alert.alert(
+          "Notice",
+          "This product is already in the shopping cart",
+          [
+              { 
+                  text: "OK", 
+                  onPress: () => {}
+              }
+          ],
+          { cancelable: false }
+        );
+      }
     }
 
     increaseQuantity = (productId) => {
