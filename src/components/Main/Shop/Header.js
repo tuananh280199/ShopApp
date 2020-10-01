@@ -30,7 +30,10 @@ class Header extends Component {
   onSearch = () => {
     const {txtSearch} = this.state;
     search(txtSearch)
-      .then((arrProduct) => global.setSearchListProduct(arrProduct))
+      .then((arrProduct) => {
+        global.setSearchListProduct(arrProduct);
+        this.setState({txtSearch: ''});
+      })
       .catch((e) => console.log(e));
   }
 
@@ -47,6 +50,7 @@ class Header extends Component {
         <TextInput
           style={styles.textInput}
           placeholder="What do you want to buy?"
+          value={this.state.txtSearch}
           onFocus={() => global.goToSearch()}
           onChangeText={(text) => this.setState({txtSearch: text})}
           onSubmitEditing={this.onSearch}

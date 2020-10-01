@@ -57,7 +57,7 @@ class Shop extends Component {
     }
 
     addProductToCart = (product) => { //setState là phương thức bất đồng bộ => có callback function
-      const checkProductInCard = this.state.cardArray.find(item => item.product.id === product.id);
+      const checkProductInCard = this.state.cardArray.find(item => item.product.id === product.id); //có thể dùng hàm some 
       if(checkProductInCard === undefined){
         this.setState(
           {cardArray: this.state.cardArray.concat({product, quantity: 1})},

@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { 
     View, Text, TouchableOpacity, 
     Dimensions, StyleSheet, Image,
-    SafeAreaView, FlatList
+    SafeAreaView, FlatList, Alert
 } from 'react-native';
 
+import getToken from '../../../../AsyncStorage/getToken';
+
 import global from '../../../../global/global';
+
+import sendOrder from '../../../../networking/sendOrder';
 
 const url = 'http://192.168.1.240/apiMyShop/images/product/';
 
@@ -16,6 +20,8 @@ function toTitleCase(str) {
 class CartView extends Component {
     constructor(props){
         super(props);
+
+        this.onSendOrder = this.onSendOrder.bind(this);
     }
 
     increaseQuantityOfThis = (productId) => {
@@ -28,6 +34,46 @@ class CartView extends Component {
 
     removeProductOfThis = (productId) => {
         global.removeProduct(productId);
+    }
+
+    //vì có nhiều phương thức bất đồng bộ (lấy token và gửi request lên server) => dùng async await
+    async onSendOrder(){
+        try {
+            const token = await getToken();
+            const arrayDetail = this.props.cardArray.map(e => ({
+                id: e.product.id,
+                quantity: e.quantity
+            }));
+            const result = await sendOrder(token,arrayDetail);
+            if(result === "THEM_THANH_CONG") {
+                Alert.alert(
+                    "Notice",
+                    "Send Order Successfully",
+                    [
+                        { 
+                            text: "OK", 
+                            onPress: () => {}
+                        }
+                    ],
+                    { cancelable: false }
+                );
+            }
+            else {
+                Alert.alert(
+                    "Notice",
+                    "Send Order Failed",
+                    [
+                        { 
+                            text: "OK", 
+                            onPress: () => {}
+                        }
+                    ],
+                    { cancelable: false }
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
@@ -85,7 +131,11 @@ class CartView extends Component {
                         keyExtractor={item => item.product.id}
                     />
                 </SafeAreaView>
-            <TouchableOpacity style={checkoutButton}>
+            <TouchableOpacity 
+                activeOpacity={0.2}
+                style={checkoutButton}
+                onPress={this.onSendOrder}
+            >
               <Text style={checkoutTitle}>TOTAL {totalPrice}$ CHECKOUT NOW</Text>
             </TouchableOpacity>
           </View>

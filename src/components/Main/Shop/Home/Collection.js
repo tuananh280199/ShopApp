@@ -6,6 +6,20 @@ import bannerImage from '../../../../assets/temp/banner.jpg';
 const { height, width } = Dimensions.get('window');
 
 class Collection extends Component {
+    constructor(props){
+        super(props);
+
+        this.gotoListProduct = this.gotoListProduct.bind(this);
+    }
+
+    gotoListProduct = () => {
+        const {navigation} = this.props;
+        navigation.navigate('Home', {
+          screen: 'ListProduct',
+          params: {category: { name : "SPRING COLLECTION", id: "COLLECTION"}}   
+        });
+    }
+
     render() {
         const { wrapper, textStyle, imageStyle } = styles;
         return (
@@ -16,7 +30,7 @@ class Collection extends Component {
                 <TouchableOpacity 
                     style={{flex: 5}}
                     activeOpacity={0.2}
-                    onPress={()=>{}}
+                    onPress={this.gotoListProduct}
                 >
                     <Image source={bannerImage} style={imageStyle}/>
                 </TouchableOpacity>
